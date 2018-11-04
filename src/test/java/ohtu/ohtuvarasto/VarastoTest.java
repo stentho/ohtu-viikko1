@@ -64,5 +64,79 @@ public class VarastoTest {
         // varastossa pitäisi olla tilaa 10 - 8 + 2 eli 4
         assertEquals(4, varasto.paljonkoMahtuu(), vertailuTarkkuus);
     }
+    
+    @Test
+    public void konstruktorinTilavuusEiNegatiivinen() {
+        varasto = new Varasto(-2);
 
+        // varastossa ei saa olla negatiivinen tilavuus
+        assertEquals(0.0, varasto.getTilavuus(), vertailuTarkkuus);
+    }
+    
+    @Test
+    public void konstruktorinSaldoJaTilavuusEiNegatiivisia() {
+        varasto = new Varasto(-2, -2);
+
+        // varastossa ei saa olla negatiivinen tilavuus tai saldo
+        assertEquals(0.0, varasto.getTilavuus(), vertailuTarkkuus);
+        assertEquals(0.0, varasto.getSaldo(), vertailuTarkkuus);
+    }
+    
+    @Test
+    public void konstruktorinSaldoJaTilavuusOikein() {
+        varasto = new Varasto(2, 2);
+
+        // varastossa ei saa olla negatiivinen tilavuus tai saldo
+        assertEquals(2, varasto.getTilavuus(), vertailuTarkkuus);
+        assertEquals(2, varasto.getSaldo(), vertailuTarkkuus);
+    }
+    
+    @Test
+    public void konstruktorinSaldoEiYlitaTilavuutta() {
+        varasto = new Varasto(2, 4);
+
+        // varastossa ei saa olla saldo suurempi kuin tilavuus
+        assertEquals(varasto.getTilavuus(), varasto.getSaldo(), vertailuTarkkuus);
+    }
+    
+    @Test
+    public void eiVoiLisataNegatiivistaMaaraa() {
+        double x = varasto.getSaldo();
+        varasto.lisaaVarastoon(-2);
+
+        // varastossa ei saa olla saldo suurempi kuin tilavuus
+        assertEquals(x, varasto.getSaldo(), vertailuTarkkuus);
+    }
+    
+    @Test
+    public void lisattavaSaldoEiVoiYlittaaTilavuuden() {
+        varasto.lisaaVarastoon(varasto.paljonkoMahtuu() + 1);
+
+        // varastossa ei saa olla saldo suurempi kuin tilavuus
+        assertEquals(varasto.getTilavuus(), varasto.getSaldo(), vertailuTarkkuus);
+    }
+    
+    @Test
+    public void eiVoiOttaaVirheellistaMaaraa() {
+        double x = varasto.getSaldo();
+        varasto.otaVarastosta(-1);
+
+        // varastossa saldo ei muutu
+        assertEquals(x, varasto.getSaldo(), vertailuTarkkuus);
+    }
+    
+    @Test
+    public void otettavaMaaraEiVoiYlittaaTilavuuden() {
+        varasto.lisaaVarastoon(5);
+        varasto.otaVarastosta(varasto.getSaldo() + 1);
+
+        // varastossa ei voi olla negatiivista saldoa
+        assertEquals(0.0, varasto.getSaldo(), vertailuTarkkuus);
+    }
+    
+    @Test
+    public void merkkijonoToimiiOikein() {
+        String malli = "saldo = " + varasto.getSaldo() + ", vielä tilaa " + varasto.paljonkoMahtuu();
+        assertEquals(malli, varasto.toString());
+    }
 }
