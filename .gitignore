@@ -1,3 +1,4 @@
 *tmp
 build/
 gradle.properties
+/RiippuvuuksienInjektointi1/.nb-gradle/
