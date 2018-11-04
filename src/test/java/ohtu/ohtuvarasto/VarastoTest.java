@@ -137,6 +137,6 @@ public class VarastoTest {
     @Test
     public void merkkijonoToimiiOikein() {
         String malli = "saldo = " + varasto.getSaldo() + ", vielä tilaa " + varasto.paljonkoMahtuu();
-        assertEquals(null, varasto.toString());
+        assertEquals(malli, varasto.toString());
     }
 }
