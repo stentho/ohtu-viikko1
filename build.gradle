@@ -19,6 +19,9 @@ repositories {
     jcenter()
 }
 
+apply plugin: 'checkstyle'
+apply plugin: "jacoco" 
+
 dependencies {
     // This dependency is found on compile classpath of this component and consumers.
     compile 'com.google.guava:guava:20.0'
@@ -35,8 +38,6 @@ jar {
         attributes 'Main-Class': 'ohtu.ohtuvarasto.Main'
     }
 }
-
-apply plugin: "jacoco" 
 
 jacocoTestReport {
     reports {
