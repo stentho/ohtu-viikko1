@@ -20,7 +20,7 @@ repositories {
 }
 
 apply plugin: 'checkstyle'
-apply plugin: "jacoco" 
+apply plugin: "jacoco"
 
 dependencies {
     // This dependency is found on compile classpath of this component and consumers.
